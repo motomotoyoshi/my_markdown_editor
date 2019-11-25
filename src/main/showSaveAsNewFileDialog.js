@@ -5,7 +5,7 @@ function showSaveAsNewFileDialog() {
     const file = dialog.showSaveDialog(
       {
         title: "save",
-        filters: [ { name: "markdown file", extensions: [ "md "] } ]
+        filters: [ { name: "markdown file", extensions: [ "md" ] } ]
       }
     );
     if (file) {

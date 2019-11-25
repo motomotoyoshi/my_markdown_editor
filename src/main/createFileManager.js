@@ -1,10 +1,15 @@
 import fs from "fs";
-import { resolve } from "dns";
 
 class FileManager {
+  constructor() {
+    this.filePath = "";
+  }
+
   saveFile(filePath, text) {
     return new Promise((resolve) => {
       fs.writeFileSync(filePath, text);
+      this.filePath = filePath;
+      resolve();
     });
   }
 }

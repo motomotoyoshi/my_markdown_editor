@@ -2,7 +2,14 @@ import { BrowserWindow, ipcMain } from 'electron';
 
 class MainWindow {
   constructor() {
-    this.window = new BrowserWindow({width: 800, height: 600 });
+    this.window = new BrowserWindow({
+      width: 800,
+      height: 600,
+      webPreferences: {
+        nodeIntegration: true,
+        // preload: `${__dirname}/MarkDownEditorUI.jsx`
+      }
+    });
     this.window.loadURL(`file://${__dirname}/../../index.html`);
     this.window.on('closed', () => {
       this.window = null;
@@ -11,10 +18,11 @@ class MainWindow {
 
   requestText() {
     return new Promise((resolve) => {
-      this.window.webContents.send("REQUEST_TEXT");
+      this.window.webContents.send("REQUEST_TEXT"),
       ipcMain.once("REPLY_TEXT", (_e, text) => resolve(text));
     });
   }
+
 }
 
 function createMainWindow() {
