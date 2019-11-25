@@ -2,6 +2,7 @@ import React from "react";
 import Editor from "./Editor";
 import style from "./MarkDownEditorUI.css";
 import Previewer from "./Previewer";
+import { ipcRenderer } from "electron";
 
 export default class MarkDownEditorUI extends React.Component {
 
@@ -13,6 +14,16 @@ export default class MarkDownEditorUI extends React.Component {
 
   onChangeText(e) {
     this.setState({ text: e.target.value });
+  }
+
+  componentDidMount() {
+    ipcRenderer.on("REQUEST_TEXT", () => {
+      ipcRenderer.send("REPLY_TEXT", this.state.text);
+    });
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.removeAllListeners();
   }
 
   render() {
