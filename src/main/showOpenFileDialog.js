@@ -2,7 +2,7 @@ import { dialog } from "electron";
 
 function showOpenFileDialog() {
   return new Promise((resolve, reject) => {
-    const files = dialog.showOpenDialog(
+    const files = dialog.showOpenDialogSync(
       {
         title: "open",
         properties: [ "openFile" ],

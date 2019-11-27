@@ -14,7 +14,6 @@ class FileManager {
   }
 
   readFile(filePath){
-    console.log(filePath);
     return new Promise((resolve) => {
       const text = fs.readFileSync(filePath, "utf8");
       this.filePath = filePath;
