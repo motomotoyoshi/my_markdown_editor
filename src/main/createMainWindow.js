@@ -23,6 +23,10 @@ class MainWindow {
     });
   }
 
+  sendText(text) {
+    this.window.webContents.send("SEND_TEXT", text);
+  }
+
 }
 
 function createMainWindow() {

@@ -3,12 +3,18 @@ import createMainWindow from "./createMainWindow";
 import setAppMenu from "./setAppMenu";
 import showSaveAsNewFileDialog from "./showSaveAsNewFileDialog";
 import createFileManager from "./createFileManager";
+import showOpenFileDialog from "./showOpenFileDialog";
 
 let mainWindow = null;
 let fileManager = null;
 
 function openFile() {
-  console.log("openFile");
+  showOpenFileDialog()
+    .then((filePath) => fileManager.readFile(filePath))
+    .then((text) => mainWindow.sendText(text))
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 function saveFile() {
@@ -16,8 +22,8 @@ function saveFile() {
 }
 
 function saveAsNewFile() {
-  Promise.all([ showSaveAsNewFileDialog(), mainWindow.requestText() ])
-    .then(([filePath, text]) => fileManager.saveFile(filePath, text))
+  return Promise.all([ showSaveAsNewFileDialog(), mainWindow.requestText() ])
+    .then(([filePath, text]) => fileManager.saveFile(filePath.filePath, text))
     .catch((error) => {
       console.log(error);
     });
