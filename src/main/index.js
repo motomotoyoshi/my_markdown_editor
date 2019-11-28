@@ -18,12 +18,20 @@ function openFile() {
 }
 
 function saveFile() {
-  console.log("saveFile");
+  if (!fileManager.filePath) {
+    saveAsNewFile();
+    return;
+  }
+  mainWindow.requestText()
+    .then((text) => fileManager.overwriteFile(text))
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 function saveAsNewFile() {
   return Promise.all([ showSaveAsNewFileDialog(), mainWindow.requestText() ])
-    .then(([filePath, text]) => fileManager.saveFile(filePath.filePath, text))
+    .then(([filePathObj, text]) => fileManager.saveFile(filePathObj.filePath, text))
     .catch((error) => {
       console.log(error);
     });

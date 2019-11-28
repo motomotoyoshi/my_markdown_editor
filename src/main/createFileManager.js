@@ -20,6 +20,10 @@ class FileManager {
       resolve(text);
     });
   }
+
+  overwriteFile(text) {
+    return this.saveFile(this.filePath, text);
+  }
 }
 
 function createFileManager() {
