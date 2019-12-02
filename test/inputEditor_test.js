@@ -36,13 +36,4 @@ describe("エディタ入力のテスト", function() {
         });
     });
   });
-
-  describe("絵文字記法で入力する", function() {
-    it("絵文字のpng画像がレンダリングされる", function() {
-      const page = new EditorPage(app.client);
-      return page.inputText(":tada:")
-        .then(() => page.findEmojiElement(":tada:"))
-        .then((element) => assert(!!element));
-    });
-  });
 });
